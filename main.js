@@ -17,5 +17,15 @@ window.onload = function() {
     var datePosition = result.indexOf('date');
     var time = result.substr(datePosition + 5, 19);
     var url = 'http://query.yahooapis.com/v1/public/yql?q=select * from html where url="rate.bot.com.tw/Pages/UIP003/Download.ashx%3Flang=zh-TW%26fileType=1%26date=' + time + '"&format=json';
+
+    ajax(url, function() {
+      var row = JSON.parse(this.responseText).query.results.body.p.split(",");
+      row = row.map(function(column) {
+        return column.trim();
+      });
+
+      var currencies = row.slice(21, 419);
+      currencies.unshift('USD');
+    });
   });
 };
