@@ -30,6 +30,9 @@ window.onload = function() {
       currencies.unshift('USD');
 
       var symbol = window.location.search.split("?").pop();
+      var dis = currencies.length / 19;
+      var countries = ['USD', 'HKD', 'GBP', 'AUD', 'CAD', 'SGD', 'CHF', 'JPY', 'ZAR', 'SEK', 'NZD', 'THB', 'PHP', 'IDR', 'EUR', 'KRW', 'VND', 'MYR', 'CNY'];
+      var position = countries.indexOf(symbol) * dis;
     });
   });
 };
