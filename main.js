@@ -33,6 +33,18 @@ window.onload = function() {
       var dis = currencies.length / 19;
       var countries = ['USD', 'HKD', 'GBP', 'AUD', 'CAD', 'SGD', 'CHF', 'JPY', 'ZAR', 'SEK', 'NZD', 'THB', 'PHP', 'IDR', 'EUR', 'KRW', 'VND', 'MYR', 'CNY'];
       var position = countries.indexOf(symbol) * dis;
+
+      var rate = {
+        to: symbol,
+        cash: {
+          buy: currencies[position + 2],
+          sell: currencies[position + 12]
+        },
+        spot: {
+          buy: currencies[position + 3],
+          sell: currencies[position + 13]
+        }
+      };
     });
   });
 };
