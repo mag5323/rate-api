@@ -11,4 +11,10 @@ window.onload = function() {
     }
     xhr.send();
   }
+
+  ajax(url, function() {
+    var result = JSON.parse(this.responseText).query.results.a.href;
+    var datePosition = result.indexOf('date');
+    var time = result.substr(datePosition + 5, 19);
+  });
 };
