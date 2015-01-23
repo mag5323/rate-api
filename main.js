@@ -28,6 +28,8 @@ window.onload = function() {
 
       var currencies = row.slice(21, 419);
       currencies.unshift('USD');
+
+      var symbol = window.location.search.split("?").pop();
     });
   });
 };
