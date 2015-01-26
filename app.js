@@ -20,4 +20,7 @@ request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, re
 
 app.get('/:symbol', function(req, res) {
   var symbol = req.param('symbol')
+  var countries = ['USD', 'HKD', 'GBP', 'AUD', 'CAD', 'SGD', 'CHF', 'JPY', 'ZAR', 'SEK', 'NZD', 'THB', 'PHP', 'IDR', 'EUR', 'KRW', 'VND', 'MYR', 'CNY'];
+  var dis = currencies.length / countries.length
+  var position = countries.indexOf(symbol) * dis
 })
