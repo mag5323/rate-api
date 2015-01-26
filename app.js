@@ -35,4 +35,5 @@ app.get('/:symbol', function(req, res) {
       sell: currencies[position + 13]
     }
   };
+  res.json({rate: rate})
 })
