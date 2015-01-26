@@ -1,6 +1,7 @@
 var request = require('request')
 var express = require('express')
 var app = express()
+var currencies
 
 request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, res, body) {
   var datetimePosition = body.indexOf('date')
@@ -12,7 +13,7 @@ request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, re
       return column.trim()
     })
 
-    var currencies = result.slice(21, 419)
+    currencies = result.slice(21, 419)
     currencies.unshift('USD')
   })
 })
