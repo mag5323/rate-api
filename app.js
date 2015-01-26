@@ -9,5 +9,8 @@ request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, re
     var result = body.split(',').map(function(column) {
       return column.trim()
     })
+
+    var currencies = result.slice(21, 419)
+    currencies.unshift('USD')
   })
 })
