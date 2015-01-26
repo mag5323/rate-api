@@ -1,4 +1,6 @@
 var request = require('request')
+var express = require('express')
+var app = express()
 
 request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, res, body) {
   var datetimePosition = body.indexOf('date')
