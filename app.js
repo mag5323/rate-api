@@ -16,3 +16,7 @@ request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, re
     currencies.unshift('USD')
   })
 })
+
+app.get('/:symbol', function(req, res) {
+  var symbol = req.param('symbol')
+})
