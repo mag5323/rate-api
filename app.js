@@ -37,3 +37,6 @@ app.get('/:symbol', function(req, res) {
   };
   res.json({rate: rate})
 })
+
+var port = process.env.PORT || 5000
+app.listen(port)
