@@ -7,7 +7,7 @@ An Node.js application that can get current exchange rate from Taiwan bank.
 Using `node app.js` command to start the application.
 
 ## API usage
-Getting URL like this: `http://yourhost/JPY` or replace **JPY** with whatever you want.
+Getting URL like this: `http://yourhost/USD` or replace **USD** with whatever you want.
 
 And you will get response with json type like this:
 ```javascript
