@@ -1,6 +1,5 @@
 var request = require('request');
 var app = require('express')();
-var currencies;
 
 request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, res, body) {
   var datetimePosition = body.indexOf('date');
@@ -12,14 +11,14 @@ request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, re
       return column.trim();
     });
 
-    currencies = result.slice(21, 419);
+    var currencies = result.slice(21, 419);
     currencies.unshift('USD');
-  })
-})
 
-app.get('/:symbol', function(req, res) {
-  var rateModel = new RateModel(req.param('symbol'), currencies);
-  res.json({ rate: rateModel.getJson() });
+    app.get('/:symbol', function(req, res) {
+      var rateModel = new RateModel(req.param('symbol'), currencies);
+      res.json({ rate: rateModel.getJson() });
+    })
+  })
 })
 
 function RateModel(symbol, currencies) {
@@ -33,7 +32,7 @@ RateModel.prototype.getCountryIndex = function() {
 };
 
 RateModel.prototype.getCurrencyIndex = function() {
-  return currencyIndex = this.getCountryIndex() * currencies.length / this.countries.length;
+  return currencyIndex = this.getCountryIndex() * this.currencies.length / this.countries.length;
 };
 
 RateModel.prototype.isInputAvailable = function() {
