@@ -24,6 +24,12 @@ app.get('/:symbol', function(req, res) {
   var searchResult = countries.indexOf(symbol)
   var rate = {}
 
+  if (searchResult < 0) {
+    rate = {msg: 'Not found currency. ' + symbol + ' is not an available currency.'}
+    res.json({rate: rate})
+    return false
+  }
+
   var position = searchResult * dis
   rate = {
     to: symbol,
