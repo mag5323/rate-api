@@ -13,14 +13,18 @@ And you will get response with json type like this:
 ```javascript
 {
     "rate": {
-        "to": "JPY",
-        "cash": {
-            "buy": "0.25880",
-            "sell": "0.26980"
-        },
-        "spot": {
-            "buy": "0.26530",
-            "sell": "0.26930"
+        "state": "ok",
+        "msg": "success",
+        "rate": {
+            "to": "USD",
+            "cash": {
+                "buy": "31.15000",
+                "sell": "31.69200"
+            },
+            "spot": {
+                "buy": "31.45000",
+                "sell": "31.55000"
+            }
         }
     }
 }
