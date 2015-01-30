@@ -1,36 +1,36 @@
-var request = require('request')
-var app = require('express')()
-var currencies
+var request = require('request');
+var app = require('express')();
+var currencies;
 
 request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, res, body) {
-  var datetimePosition = body.indexOf('date')
-  var datetime = body.substr(datetimePosition + 5, 19)
+  var datetimePosition = body.indexOf('date');
+  var datetime = body.substr(datetimePosition + 5, 19);
 
   var url = 'http://rate.bot.com.tw/Pages/UIP003/Download.ashx?lang=zh-TW&fileType=1&date=' + datetime;
   request(url, function(err, res, body) {
     var result = body.split(',').map(function(column) {
-      return column.trim()
-    })
+      return column.trim();
+    });
 
-    currencies = result.slice(21, 419)
-    currencies.unshift('USD')
+    currencies = result.slice(21, 419);
+    currencies.unshift('USD');
   })
 })
 
 app.get('/:symbol', function(req, res) {
-  var symbol = req.param('symbol')
+  var symbol = req.param('symbol');
   var countries = ['USD', 'HKD', 'GBP', 'AUD', 'CAD', 'SGD', 'CHF', 'JPY', 'ZAR', 'SEK', 'NZD', 'THB', 'PHP', 'IDR', 'EUR', 'KRW', 'VND', 'MYR', 'CNY'];
-  var dis = currencies.length / countries.length
-  var searchResult = countries.indexOf(symbol)
-  var rate = {}
+  var dis = currencies.length / countries.length;
+  var searchResult = countries.indexOf(symbol);
+  var rate = {};
 
   if (searchResult < 0) {
-    rate = {msg: 'Not found currency. ' + symbol + ' is not an available currency.'}
-    res.json({rate: rate})
-    return false
+    rate = {msg: 'Not found currency. ' + symbol + ' is not an available currency.'};
+    res.json({rate: rate});
+    return false;
   }
 
-  var position = searchResult * dis
+  var position = searchResult * dis;
   rate = {
     to: symbol,
     cash: {
@@ -42,8 +42,8 @@ app.get('/:symbol', function(req, res) {
       sell: currencies[position + 13]
     }
   };
-  res.json({rate: rate})
+  res.json({rate: rate});
 })
 
-var port = process.env.PORT || 5000
-app.listen(port)
+var port = process.env.PORT || 5000;
+app.listen(port);
