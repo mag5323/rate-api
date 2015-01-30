@@ -1,0 +1,27 @@
+{
+  "name": "bot-rate",
+  "version": "0.0.1",
+  "description": "Getting current exchange rate from Taiwan bank",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "~4.9.x",
+    "request": "~2.51.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mag5323/rate-api"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express",
+    "rate"
+  ],
+  "license": "MIT"
+}
