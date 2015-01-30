@@ -18,32 +18,63 @@ request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, re
 })
 
 app.get('/:symbol', function(req, res) {
-  var symbol = req.param('symbol');
-  var countries = ['USD', 'HKD', 'GBP', 'AUD', 'CAD', 'SGD', 'CHF', 'JPY', 'ZAR', 'SEK', 'NZD', 'THB', 'PHP', 'IDR', 'EUR', 'KRW', 'VND', 'MYR', 'CNY'];
-  var dis = currencies.length / countries.length;
-  var searchResult = countries.indexOf(symbol);
-  var rate = {};
+  var rateModel = new RateModel(req.param('symbol'), currencies);
+  res.json({ rate: rateModel.getJson() });
+})
 
-  if (searchResult < 0) {
-    rate = {msg: 'Not found currency. ' + symbol + ' is not an available currency.'};
-    res.json({rate: rate});
-    return false;
+function RateModel(symbol, currencies) {
+  this.currencies = currencies;
+  this.symbol = symbol;
+  this.countries = ['USD', 'HKD', 'GBP', 'AUD', 'CAD', 'SGD', 'CHF', 'JPY', 'ZAR', 'SEK', 'NZD', 'THB', 'PHP', 'IDR', 'EUR', 'KRW', 'VND', 'MYR', 'CNY'];
+}
+
+RateModel.prototype.getCountryIndex = function() {
+  return countryIndex = this.countries.indexOf(this.symbol);
+};
+
+RateModel.prototype.getCurrencyIndex = function() {
+  return currencyIndex = this.getCountryIndex() * currencies.length / this.countries.length;
+};
+
+RateModel.prototype.isInputAvailable = function() {
+  return this.getCountryIndex() >= 0 ? true : false;
+};
+
+RateModel.prototype.getStates= function() {
+  var states = {
+    state: 'ok',
+    msg: 'success'
+  };
+
+  if (!this.isInputAvailable()) {
+    states.state = 'error';
+    states.msg = this.symbol + ' is not an available currency.';
+  }
+  return states;
+};
+
+RateModel.prototype.getJson = function() {
+  var i = this.getCurrencyIndex();
+  var states = this.getStates();
+
+  var result = {
+    state: states.state,
+    msg: states.msg,
+    rate: {
+      to: this.symbol,
+      cash: {
+        buy: this.currencies[i + 2],
+        sell: this.currencies[i + 12]
+      },
+      spot: {
+        buy: this.currencies[i + 3],
+        sell: this.currencies[i + 13]
+      }
+    }
   }
 
-  var position = searchResult * dis;
-  rate = {
-    to: symbol,
-    cash: {
-      buy: currencies[position + 2],
-      sell: currencies[position + 12]
-    },
-    spot: {
-      buy: currencies[position + 3],
-      sell: currencies[position + 13]
-    }
-  };
-  res.json({rate: rate});
-})
+  return result;
+}
 
 var port = process.env.PORT || 5000;
 app.listen(port);
