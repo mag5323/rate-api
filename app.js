@@ -21,9 +21,10 @@ app.get('/:symbol', function(req, res) {
   var symbol = req.param('symbol')
   var countries = ['USD', 'HKD', 'GBP', 'AUD', 'CAD', 'SGD', 'CHF', 'JPY', 'ZAR', 'SEK', 'NZD', 'THB', 'PHP', 'IDR', 'EUR', 'KRW', 'VND', 'MYR', 'CNY'];
   var dis = currencies.length / countries.length
-  var position = countries.indexOf(symbol) * dis
+  var searchResult = countries.indexOf(symbol)
   var rate = {}
 
+  var position = searchResult * dis
   rate = {
     to: symbol,
     cash: {
