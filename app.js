@@ -16,7 +16,7 @@ request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, re
 
     app.get('/:symbol', function(req, res) {
       var rateModel = new RateModel(req.param('symbol'), currencies);
-      res.json({ rate: rateModel.getJson() });
+      res.json(rateModel.getJson());
     })
   })
 })
