@@ -76,4 +76,4 @@ RateModel.prototype.getJson = function() {
 }
 
 var port = process.env.PORT || 5000;
-app.listen(port, '106.186.27.178');
+app.listen(port);
