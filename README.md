@@ -12,21 +12,21 @@ Getting URL like this: `http://yourhost/USD` or replace **USD** with whatever yo
 And you will get response with json type like this:
 ```javascript
 {
+  "rate": {
+    "state": "ok",
+    "msg": "success",
     "rate": {
-        "state": "ok",
-        "msg": "success",
-        "rate": {
-            "to": "USD",
-            "cash": {
-                "buy": "31.15000",
-                "sell": "31.69200"
-            },
-            "spot": {
-                "buy": "31.45000",
-                "sell": "31.55000"
-            }
-        }
+      "to": "USD",
+      "cash": {
+        "buy": "31.15000",
+        "sell": "31.69200"
+      },
+      "spot": {
+        "buy": "31.45000",
+        "sell": "31.55000"
+      }
     }
+  }
 }
 ```
 
