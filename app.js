@@ -14,6 +14,14 @@ request('http://rate.bot.com.tw/Pages/Static/UIP003.zh-TW.htm', function(err, re
     var currencies = result.slice(21, 419);
     currencies.unshift('USD');
 
+    app.use(function (req, res, next) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET');
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+      res.setHeader('Access-Control-Allow-Credentials', true);
+      next();
+    });
+
     app.get('/:symbol', function(req, res) {
       var rateModel = new RateModel(req.param('symbol'), currencies);
       res.json(rateModel.getJson());
